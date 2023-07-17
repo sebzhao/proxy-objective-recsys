@@ -27,6 +27,15 @@ def apk(recommendations, proxy_prefs, true_prefs):
     return apk_proxy, apk_true
 
 
+def batch_mapk(recommendations, proxy_prefs, true_prefs):
+    total_proxy, total_true = 0, 0
+    for i in range(recommendations.shape[0]):
+        apk_proxy, apk_true = apk(recommendations[i], proxy_prefs[i], true_prefs[i])
+        total_proxy += apk_proxy
+        total_true += apk_true
+    return total_proxy / recommendations.shape[0], total_true / recommendations.shape[0]
+
+
 def validation(watch_matrix, proxy_prefs, true_prefs, model, k=10):
     """ """
     # Get top k recommendations for each user
