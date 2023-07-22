@@ -94,3 +94,29 @@ def train(model, watch_matrix, proxy_prefs, true_prefs, num_epochs=10):
         true_losses.append(true_loss)
 
     return model, training_losses, proxy_losses, true_losses
+
+
+def random_classification_noise(watch_matrix, p):
+    """
+    watch_matrix: watch matrix of watched or not
+    p: probability of disliking an interacted with item
+    """
+    # Create a copy of the watch matrix
+    watch_matrix_noisy = watch_matrix.copy()
+
+    # For each user, randomly select p% of their interacted with items and set them to 0
+    watch_matrix_noisy = watch_matrix_noisy.applymap(lambda x: -1 if x == 1 and np.random.random() < p else x)
+
+    return watch_matrix_noisy.values
+
+
+def convert_to_index_lst(matrix):
+    return [list(np.where(row == 1)[0]) for row in matrix]
+
+
+def simulate_data_normal(num_users, num_items, num_factors):
+    users = np.random.randn(num_users, num_factors)
+    items = np.random.randn(num_items, num_factors)
+
+    user_item = users @ items.T
+    return user_item
