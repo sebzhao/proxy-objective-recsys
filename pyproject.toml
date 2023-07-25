@@ -12,6 +12,7 @@ pandas = "^2.0.3"
 seaborn = "^0.12.2"
 ipykernel = "^6.24.0"
 cython = "^3.0.0"
+recometrics = "^0.1.6.post9"
 
 
 [tool.poetry.group.dev.dependencies]
